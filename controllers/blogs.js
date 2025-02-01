@@ -1,11 +1,13 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const listHelper = require('../utils/list_helper')
 
 blogsRouter.get('/', (request, response) => {
     Blog
         .find({})
         .then(blogs => {
             response.json(blogs)
+            listHelper.dummy(blogs)
         })
 })
 
