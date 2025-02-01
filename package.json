@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "fly deploy",
+    "test": "node --test"
   },
   "author": "Eva",
   "license": "MIT",
