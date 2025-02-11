@@ -1,7 +1,8 @@
-const Blog = ({ blog }) => (
+const Blog = ({ blog, deleteBlog }) => (
   <div>
     {blog.title} {blog.author}
-  </div>  
+    <button onClick={deleteBlog}>delete</button>
+  </div>
 )
 
 export default Blog
