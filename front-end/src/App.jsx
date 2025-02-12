@@ -97,6 +97,24 @@ const App = () => {
       })
   }
 
+  const handleLike = (id) => {
+    const blogToUpdate = blogs.find(b => b.id === id)
+    const updatedBlog = {
+      ...blogToUpdate,
+      likes: blogToUpdate.likes + 1
+    }
+
+    blogService
+      .update(id, updatedBlog)
+      .then(returnedBlog => {
+        setBlogs(blogs.map(b => b.id === id ? returnedBlog : b))
+      })
+      .catch(error => {
+        setErrorMessage(`Error, like unsuccessful: ${error}`)
+        setTimeout(() => setErrorMessage(null), 3000)
+      })
+  }
+
   const Footer = () => {
     const footerStyle = {
       color: 'green',
@@ -132,7 +150,9 @@ const App = () => {
       </Togglable>
       <ul>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} deleteBlog={() => deleteBlog(blog.id)} />
+          <Blog key={blog.id} blog={blog}
+            deleteBlog={() => deleteBlog(blog.id)}
+            handleLike={() => handleLike(blog.id)}/>
         )}
       </ul>
     </div>
