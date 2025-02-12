@@ -61,21 +61,23 @@ const App = () => {
   }
 
   const deleteBlog = (id) => {
-    blogService
-      .deleteBlog(id)
-      .then(() => {
-        setBlogs(blogs.filter(blog => blog.id !== id))
-        setErrorMessage('delete success!')
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 1000)
-      })
-      .catch(error => {
-        setErrorMessage(`Error, delete unsuccessful: ${error}`)
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 3000)
-      })
+    if (window.confirm('Are you sure you want to delete this blog?')) {
+      blogService
+        .deleteBlog(id)
+        .then(() => {
+          setBlogs(blogs.filter(blog => blog.id !== id))
+          setErrorMessage('delete success!')
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 1000)
+        })
+        .catch(error => {
+          setErrorMessage(`Error, delete unsuccessful: ${error}`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 3000)
+        })
+    }
   }
 
   const addBlog = (blogObject) => {
@@ -156,7 +158,7 @@ const App = () => {
         {blogs.map(blog =>
           <Blog key={blog.id} blog={blog}
             deleteBlog={() => deleteBlog(blog.id)}
-            handleLike={() => handleLike(blog.id)}/>
+            handleLike={() => handleLike(blog.id)} />
         )}
       </ul>
     </div>
